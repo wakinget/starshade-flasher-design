@@ -35,9 +35,46 @@ Codex, you are assisting with the development of a Python 3.11 library that gene
 - `references.py`: metadata for original papers and citation helpers.
 - `tests/`: unit tests for geometry, pattern generation, solvers.
 
+## Mathematical References
+
+Codex should treat the following math notes as the authoritative specifications for
+all geometric and numerical algorithms in this project. When implementing or modifying
+code related to crease-pattern generation, isometry solves, stowed/deployed mappings,
+or tessellation logic, consult these files **first**:
+
+- docs/math/guest_pellegrino_flashing.md  
+  Zero-thickness flasher geometry; major/minor fold layout; angular compatibility
+  near the hub; analytic planar crease pattern generation.
+
+- docs/math/arya2021_optical_shield.md  
+  Thickness-accommodating spiral-wrapped flasher; mountain/valley stowed spirals;
+  nested ring-by-ring solver for planar deployed surfaces; length-matching constraints.
+
+- docs/math/kreider_arya_corrugated.md  
+  Generalization to corrugated (non-flat) deployed surfaces; full two-level nested
+  isometry solver (inner twist angle ψ, outer height/corrugation parameter h);
+  developable surface embedding S(u,v).
+
+- docs/math/jatusripitak_arya_tessellations.md  
+  Tessellation constraints for joining multiple flasher units into regular or
+  semi-regular tilings (triangular, square, hexagonal); join conditions for
+  sector angles, fold-type compatibility, and edge-length matching.
+
+These documents define:
+- coordinate systems,
+- notation tables,
+- equations and geometric constraints,
+- algorithm descriptions and pseudocode,
+- expected inputs and outputs for implementation,
+- testable invariants.
+
+When a task involves generating crease patterns, solving ring geometry, or assembling
+tessellations, Codex should open the relevant math note and follow the exact equations
+and constraints described there.
+
 ## What Codex Should Do
 
 - Maintain consistency across modules.
-- Follow mathematical definitions from the referenced papers.
+- Follow mathematical definitions from the referenced papers and math docs.
 - Respect the roadmap in `docs/ROADMAP.md`.
 - When modifying multiple files, group related edits into clear PRs.
