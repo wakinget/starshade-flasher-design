@@ -5,46 +5,68 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal, Optional, Tuple
 
+Vec2 = Tuple[float, float]
 Vec3 = Tuple[float, float, float]
-FoldType = Literal["mountain", "valley", "neutral", "major", "minor", "diagonal"]
+Vec = Vec2 | Vec3
+FoldType = Literal[
+    "mountain",
+    "valley",
+    "neutral",
+    "major",
+    "minor",
+    "diagonal",
+    "hub",
+]
 
 
 @dataclass
 class Vertex:
-    """
-    Placeholder for a vertex in 3D space.
+    """Vertex in 2D or 3D space.
+
+    The zero-thickness flasher operates entirely in the xy-plane, but we allow
+    a 3D coordinate for compatibility with downstream thickness-aware tools.
 
     Parameters
     ----------
     position:
-        Cartesian coordinates of the vertex.
+        Cartesian coordinates of the vertex (2D or 3D).
     index:
-        Optional integer identifier for mesh indexing.
+        Optional integer identifier for mesh indexing. When vertices are
+        returned from pattern generators, this is populated to make edge
+        references explicit.
+    label:
+        Optional human-readable label for debugging or visualization overlays.
     """
 
-    position: Vec3
+    position: Vec
     index: Optional[int] = None
+    label: Optional[str] = None
 
 
 @dataclass
 class Edge:
-    """
-    Placeholder representation of a crease or mesh edge.
+    """Representation of a crease or mesh edge.
+
+    Edges reference vertices by index rather than storing full ``Vertex``
+    instances. This keeps the data model lightweight and makes it easier to
+    serialize crease patterns.
 
     Parameters
     ----------
     start:
-        Starting vertex of the edge.
+        Index of the starting vertex.
     end:
-        Ending vertex of the edge.
+        Index of the ending vertex.
     fold_type:
-        Classification for the crease (e.g., mountain, valley, major, minor).
+        Classification for the crease (e.g., mountain, valley, major, minor,
+        hub). ``None`` can be used for untyped mesh edges.
     fold_angle:
-        Target fold angle in radians; sign convention to be defined in future work.
+        Target fold angle in radians; sign convention to be defined in future
+        work.
     """
 
-    start: Vertex
-    end: Vertex
+    start: int
+    end: int
     fold_type: Optional[FoldType] = None
     fold_angle: Optional[float] = None
 
