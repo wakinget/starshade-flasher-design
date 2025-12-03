@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "starshade-flasher-design"
+version = "0.0.0"
+description = "Algorithms and visualization tools for generating origami flasher fold patterns for starshade-like deployable structures."
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Dylan McKeithen", email = "dylan.m.mckeithen@jpl.nasa.gov"}
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+]
+
+# Optional: entry points for CLI tools in the future
+# [project.scripts]
+# starshade-flasher = "starshade_flasher.cli:main"
+
+
+[project.urls]
+Homepage = "https://github.com/wakinget/starshade-flasher-design"
+Source = "https://github.com/wakinget/starshade-flasher-design"
+Issues = "https://github.com/wakinget/starshade-flasher-design/issues"
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
