@@ -5,7 +5,7 @@ from __future__ import annotations
 from .geometry import Edge, Face, Vertex
 from .patterns import generate_thickness_accommodating_pattern, generate_zero_thickness_flasher
 from .solvers import numerical_jacobian, solve_per_ring_isometry
-from .visualization import plot_3d_mesh, plot_deployed_and_stowed
+from .visualization import plot_3d_mesh, plot_deployed_and_stowed, plot_zero_thickness_flasher
 
 __all__ = [
     "Edge",
@@ -14,6 +14,7 @@ __all__ = [
     "generate_thickness_accommodating_pattern",
     "generate_zero_thickness_flasher",
     "numerical_jacobian",
+    "plot_zero_thickness_flasher",
     "plot_3d_mesh",
     "plot_deployed_and_stowed",
     "solve_per_ring_isometry",

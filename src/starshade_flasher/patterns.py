@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import math
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 from .geometry import Edge, Vertex
 
 
-def generate_zero_thickness_flasher(N: int, n: int, A: float, L: Sequence[float]) -> Dict[str, Any]:
+def generate_zero_thickness_flasher(
+    N: int, n: int, A: float, L: Optional[Sequence[float]] = None
+) -> Dict[str, Any]:
     """Generate the planar zero-thickness flasher pattern.
 
     This follows the deployed-state geometry in
@@ -29,6 +31,8 @@ def generate_zero_thickness_flasher(N: int, n: int, A: float, L: Sequence[float]
         Hub radius (circumradius of the central regular polygon).
     L:
         Strictly increasing radial distances of length ``n+1`` with ``L[0]=0``.
+        If ``None``, a simple linear spacing ``[0, 1, 2, ..., n]`` is used as a
+        placeholder.
 
     Returns
     -------
@@ -63,6 +67,8 @@ def generate_zero_thickness_flasher(N: int, n: int, A: float, L: Sequence[float]
         raise ValueError("N must be at least 3 to form a polygonal hub.")
     if n < 1:
         raise ValueError("n must be at least 1 to place vertices beyond the hub.")
+    if L is None:
+        L = [float(i) for i in range(n + 1)]
     if len(L) != n + 1:
         raise ValueError("L must have length n+1, including the hub distance L[0].")
     if any(L[i] <= L[i - 1] for i in range(1, len(L))):
